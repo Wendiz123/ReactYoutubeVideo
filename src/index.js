@@ -2,8 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import SearchBar from './components/search_bar'
 import YTSEARCH from 'youtube-api-search'
-
-const API_KEY = 'AIzaSyDxe6TuLRDBwol_kv0QJUDFMpTmlnqd7rg';
+import API_KEY from './config'
 
 YTSEARCH({key:API_KEY, term:'surfboards'}, function(data){
   console.log(data)
