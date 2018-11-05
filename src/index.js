@@ -1,40 +1,20 @@
-import _ from 'lodash';
-import React from 'react'
-import ReactDOM from 'react-dom'
-import YSearch from 'youtube-api-search'
-import { VideoList } from './components/video_list'
-import { VideoDetail } from './components/video_detail'
-import { SearchBar } from './components/search_bar'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import SearchBar from './components/search_bar'
+import YTSEARCH from 'youtube-api-search'
 
 const API_KEY = 'AIzaSyDxe6TuLRDBwol_kv0QJUDFMpTmlnqd7rg';
 
-class App extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = { videos: [], selectedVideo:null}
+YTSEARCH({key:API_KEY, term:'surfboards'}, function(data){
+  console.log(data)
+})
 
-        this.searching("IT Detikcom");
-    }
-
-    searching(term) {
-        YSearch({key: API_KEY, term: term}, (videos)=>{
-            this.setState({
-                videos: videos,
-                selectedVideo: videos[0]
-            });
-        });
-    }
-
-    render(){
-        const videoSearch = _.debounce((term) => { this.searching(term) }, 300);
-        return (<div>
-            <SearchBar onSearchTerm={ videoSearch } />
-            <VideoDetail video={this.state.selectedVideo} />
-            <VideoList 
-            onVideoSelect={selectedVideo =>this.setState({selectedVideo})}
-            list={this.state.videos} />
-        </div>)
-    }
+const App = () => {
+    return(
+      <div>
+        <SearchBar placeholder="Searching ..." />
+      </div>
+    )
 }
 
 ReactDOM.render(<App />, document.querySelector('.container'));
